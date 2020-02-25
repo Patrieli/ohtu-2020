@@ -1,20 +1,15 @@
 package ohtu.verkkokauppa;
 
-public class Pankki {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-    private static Pankki instanssi;
+@Component
+public class Pankki implements PankkiIF {
 
-    public static Pankki getInstance() {
-        if (instanssi == null) {
-            instanssi = new Pankki();
-        }
-
-        return instanssi;
-    }
-    private Kirjanpito kirjanpito;
+    @Autowired
+    private KirjanpitoIF kirjanpito;
 
     public Pankki() {
-        kirjanpito = Kirjanpito.getInstance();
     }
 
     public boolean tilisiirto(String nimi, int viitenumero, String tililta, String tilille, int summa) {

@@ -1,4 +1,3 @@
-
 package ohtu.verkkokauppa;
 
 public class Tuote {
