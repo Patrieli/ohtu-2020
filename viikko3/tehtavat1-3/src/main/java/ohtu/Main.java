@@ -3,11 +3,14 @@ package ohtu;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.*;
 
 import org.apache.http.client.fluent.Request;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        List<Player> arr = new ArrayList<>();
+
         String url = "https://nhlstatisticsforohtu.herokuapp.com/players";
         
         String bodyText = Request.Get(url).execute().returnContent().asString();
@@ -23,9 +26,15 @@ public class Main {
         System.out.println("\nPlayers from FIN " + timestamp + "\n" );
         for (Player player : players) {
             if (player.getNationality().equals("FIN")) {
-                System.out.println(player);
+                arr.add(player);
             } 
-        }   
+        }
+        
+        Collections.sort(arr, new SortByPoints());
+        
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i));
+        }
     }
   
 }
